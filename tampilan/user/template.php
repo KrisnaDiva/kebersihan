@@ -34,6 +34,12 @@ user();
     <!-- Main CSS File -->
     <link href="../../landing/assets/css/main.css" rel="stylesheet">
 
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body class="index-page">
@@ -53,10 +59,11 @@ user();
                     $servicesHref = $currentFile == 'index.php' ? '#services' : 'index.php';
                     $homeClass = $currentFile == 'index.php' ? 'active' : '';
                     $servicesClass = $currentFile == 'detail_layanan.php' ? 'active' : '';
+                    $infoClass = $currentFile == 'info_pemesanan.php' ? 'active' : '';
                     ?>
                     <li><a href="<?= $homeHref ?>" class="<?= $homeClass ?>">Home</a></li>
                     <li><a href="<?= $servicesHref ?>" class="<?= $servicesClass ?>">Layanan</a></li>
-                    <li><a href="#contact">Info Pemesanan</a></li>
+                    <li><a href="info_pemesanan.php" class="<?= $infoClass ?>">Info Pemesanan</a></li>
                     <li><a href="../../proses/logout.php">Logout</a></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

@@ -23,6 +23,9 @@ try {
             'nama_jasa' => $_POST['nama_jasa'],
             'keterangan_id' => $_POST['keterangan_id'],
             'harga' => $_POST['harga'],
+            'alamat' => $_POST['alamat'],
+            'kelurahan' => $_POST['kelurahan'],
+            'kecamatan' => $_POST['kecamatan'],
             'no_hp' => $_POST['no_hp'],
             'email' => $_POST['email'],
             'facebook' => $_POST['facebook'],
@@ -58,9 +61,9 @@ try {
     } else if ($role == 'pencari') {
         $data = [
             'nama' => $_POST['nama'],
-            'alamat' => $_POST['alamat'],
             'no_hp' => $_POST['no_hp_pencari'],
             'email' => $_POST['email_pencari'],
+            'alamat' => $_POST['alamat_pencari'],
             'user_id' => $koneksi->lastInsertId(),
         ];
         $fields = implode(',', array_keys($data));

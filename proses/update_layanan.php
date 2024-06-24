@@ -34,6 +34,9 @@ try {
     $data = [
         'nama_jasa' => $_POST['nama_jasa'],
         'harga' => $_POST['harga'],
+        'alamat' => $_POST['alamat'],
+        'kelurahan' => $_POST['kelurahan'],
+        'kecamatan' => $_POST['kecamatan'],
         'no_hp' => $_POST['no_hp'],
         'email' => $_POST['email'],
         'facebook' => $_POST['facebook'],

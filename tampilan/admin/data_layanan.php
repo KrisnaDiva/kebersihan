@@ -30,6 +30,9 @@ $results = $statement->fetchAll();
                                     <th>Nama Jasa</th>
                                     <th>Foto</th>
                                     <th>Harga</th>
+                                    <th>Alamat</th>
+                                    <th>Kelurahan</th>
+                                    <th>Kecamatan</th>
                                     <th>No HP</th>
                                     <th>Email</th>
                                     <th>Facebook</th>
@@ -48,6 +51,9 @@ $results = $statement->fetchAll();
                                             <img src="../../gambar/<?= $result['foto'] ?>">
                                         </td>
                                         <td><?= $result['harga'] ?></td>
+                                        <td><?= $result['alamat'] ?></td>
+                                        <td><?= $result['kelurahan'] ?></td>
+                                        <td><?= $result['kecamatan'] ?></td>
                                         <td><?= $result['no_hp'] ?></td>
                                         <td><?= $result['email'] ?></td>
                                         <td><?= $result['facebook'] ?></td>
@@ -60,6 +66,9 @@ $results = $statement->fetchAll();
                                                data-nama_jasa="<?= $result['nama_jasa'] ?>"
                                                data-foto="<?= $result['foto'] ?>"
                                                data-harga="<?= $result['harga'] ?>"
+                                                  data-alamat="<?= $result['alamat'] ?>"
+                                                  data-kelurahan="<?= $result['kelurahan'] ?>"
+                                                    data-kecamatan="<?= $result['kecamatan'] ?>"
                                                data-no_hp="<?= $result['no_hp'] ?>"
                                                data-email="<?= $result['email'] ?>"
                                                data-facebook="<?= $result['facebook'] ?>"

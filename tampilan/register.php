@@ -195,8 +195,8 @@ $keterangan = $statement->fetchAll();
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label for="alamat" class="form-label">Alamat</label>
-                                                    <input type="text" class="form-control" name="alamat" id="alamat">
+                                                    <label for="alamat_pencari" class="form-label">Alamat</label>
+                                                    <input type="text" class="form-control" name="alamat_pencari" id="alamat_pencari">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
