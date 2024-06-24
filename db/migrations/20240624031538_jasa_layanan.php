@@ -27,10 +27,12 @@ final class JasaLayanan extends AbstractMigration
             ->addColumn('harga', 'integer')
             ->addColumn('foto', 'string', ['limit' => 255])
             ->addColumn('no_hp', 'string', ['limit' => 20])
+            ->addColumn('kecamatan', 'string', ['limit' => 100])
+            ->addColumn('kelurahan', 'string', ['limit' => 100])
+            ->addColumn('alamat', 'text')
             ->addColumn('email', 'string', ['limit' => 100])
             ->addColumn('facebook', 'string', ['limit' => 100])
             ->addColumn('instagram', 'string', ['limit' => 100])
-
             ->addForeignKey('user_id', 'users', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
             ->addForeignKey('keterangan_id', 'keterangan', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
             ->create();

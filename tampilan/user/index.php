@@ -1,11 +1,27 @@
 <?php
 $title = "Home";
 ob_start();
-require_once __DIR__.'/../../koneksi.php';
+require_once __DIR__ . '/../../koneksi.php';
 $koneksi = getKoneksi();
 
-$sql = "SELECT * FROM jasa_layanan";
+$sql = "SELECT jasa_layanan.* FROM jasa_layanan JOIN keterangan ON jasa_layanan.keterangan_id = keterangan.id";
+$conditions = [];
+if (isset($_GET['kelurahan']) && $_GET['kelurahan'] != '') {
+    $conditions[] = "kelurahan = :kelurahan";
+}
+if (isset($_GET['keterangan']) && $_GET['keterangan'] != '') {
+    $conditions[] = "keterangan.nama = :keterangan";
+}
+if (!empty($conditions)) {
+    $sql .= " WHERE " . implode(' AND ', $conditions);
+}
 $statement = $koneksi->prepare($sql);
+if (isset($_GET['kelurahan']) && $_GET['kelurahan'] != '') {
+    $statement->bindParam(':kelurahan', $_GET['kelurahan']);
+}
+if (isset($_GET['keterangan']) && $_GET['keterangan'] != '') {
+    $statement->bindParam(':keterangan', $_GET['keterangan']);
+}
 $statement->execute();
 $jasa_layanan = $statement->fetchAll();
 
@@ -24,6 +40,44 @@ $jasa_layanan = $statement->fetchAll();
     </div>
 </section>
 <section id="services" class="services section">
+<form method="GET" action="" class="row justify-content-center mb-5">
+    <div class="col-md-3">
+        <label for="kelurahan">Kelurahan</label>
+        <select name="kelurahan" id="kelurahan" class="form-control" onchange="this.form.submit()">
+            <option value="">Pilih Kelurahan</option>
+            <?php
+            $kelurahan = [
+                'Anggrung',
+                'Madras Hulu',
+                'Polonia',
+                'Sari Rejo',
+                'Suka Damai'
+            ];
+
+            foreach ($kelurahan as $row) {
+                echo "<option value=\"{$row}\" " . ($_GET['kelurahan'] == $row ? 'selected' : '') . ">{$row}</option>";
+            }
+            ?>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <label for="keterangan">Jenis</label>
+        <select name="keterangan" id="keterangan" class="form-control" onchange="this.form.submit()">
+            <option value="">Pilih Jenis</option>
+            <?php
+            $sql = "SELECT DISTINCT nama FROM keterangan ORDER BY nama";
+            $statement = $koneksi->prepare($sql);
+            $statement->execute();
+            $keterangan = $statement->fetchAll();
+            foreach ($keterangan as $row) {
+                echo "<option value=\"{$row['nama']}\" " . ($_GET['keterangan'] == $row['nama'] ? 'selected' : '') . ">{$row['nama']}</option>";
+            }
+            ?>
+        </select>
+    </div>
+
+</form>
     <div class="container section-title" data-aos="fade-up">
         <p><span>Penyedia Jasa</span> <span class="description-title">Layanan</span></p>
     </div>
@@ -32,10 +86,10 @@ $jasa_layanan = $statement->fetchAll();
             <?php foreach ($jasa_layanan as $jasa): ?>
                 <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-item position-relative">
-                        <div class="member-img"  >
+                        <div class="member-img">
                             <img src="../../gambar/<?= $jasa['foto'] ?>" alt="" class="img-fluid">
                         </div>
-                            <h3><?= $jasa['nama_jasa'] ?></h3>
+                        <h3><?= $jasa['nama_jasa'] ?></h3>
                         <?php
                         $sql = "SELECT * FROM keterangan WHERE id = ?";
                         $statement = $koneksi->prepare($sql);
@@ -45,7 +99,7 @@ $jasa_layanan = $statement->fetchAll();
                         <p style="text-transform: capitalize">layanan kami siap melayani anda dalam
                             <?= $keterangan['nama'] ?>
                         </p>
-                        <a class="btn btn-primary w-100 mt-4">Detail</a>
+                        <a class="btn btn-primary w-100 mt-4" href="detail_layanan.php?id=<?= $jasa['id'] ?>">Detail</a>
                     </div>
                 </div>
             <?php endforeach; ?>

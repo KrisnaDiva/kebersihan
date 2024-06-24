@@ -35,6 +35,7 @@ $jumlah_jasa_layanan = $stmt->fetchColumn();
                                     <div class="text-end">
                                         Data User
                                         <h2 class="counter" style="visibility: visible;"><?= $jumlah_konsumen ?></h2>
+                                        <a class="btn btn-primary mt-2" href="cetak_user.php">Cetak</a>
                                     </div>
                                 </div>
                             </div>
@@ -55,6 +56,7 @@ $jumlah_jasa_layanan = $stmt->fetchColumn();
                                     <div class="text-end">
                                         Data Layanan
                                         <h2 class="counter" style="visibility: visible;"><?= $jumlah_jasa_layanan ?></h2>
+                                        <a class="btn btn-primary mt-2" href="cetak_layanan.php">Cetak</a>
                                     </div>
                                 </div>
                             </div>

@@ -7,26 +7,26 @@
             </div>
             <form action="../../proses/update_user.php" method="post">
                 <div class="modal-body">
-                    <input type="hidden" name="id" id="edit-id">
+                    <input required type="hidden" name="id" id="edit-id">
                     <div class="mb-3">
                         <label for="edit-username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="edit-username" name="username">
+                        <input required type="text" class="form-control" id="edit-username" name="username">
                     </div>
                     <div class="mb-3">
                         <label for="edit-nama" class="form-label">Nama</label>
-                        <input type="text" class="form-control" id="edit-nama" name="nama">
+                        <input required type="text" class="form-control" id="edit-nama" name="nama">
                     </div>
                     <div class="mb-3">
                         <label for="edit-alamat" class="form-label">Alamat</label>
-                        <input type="text" class="form-control" id="edit-alamat" name="alamat">
+                        <input required type="text" class="form-control" id="edit-alamat" name="alamat">
                     </div>
                     <div class="mb-3">
                         <label for="edit-no_hp" class="form-label">No HP</label>
-                        <input type="text" class="form-control" id="edit-no_hp" name="no_hp">
+                        <input required type="text" class="form-control" id="edit-no_hp" name="no_hp">
                     </div>
                     <div class="mb-3">
                         <label for="edit-email" class="form-label">Email</label>
-                        <input type="text" class="form-control" id="edit-email" name="email">
+                        <input required type="text" class="form-control" id="edit-email" name="email">
                     </div>
                 </div>
                 <div class="modal-footer">

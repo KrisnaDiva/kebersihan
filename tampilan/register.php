@@ -52,8 +52,8 @@ $keterangan = $statement->fetchAll();
 
 <div class="wrapper">
     <section class="login-content">
-        <div class="row m-0 align-items-center bg-white vh-100">
-            <div class="col-md-5 d-md-block d-none bg-primary p-0 mt-n1 vh-100 overflow-hidden">
+        <div class="row m-0 align-items-center bg-white">
+            <div class="col-md-5 d-md-block d-none bg-primary p-0 mt-n1 ">
                 <img src="../admin/assets/images/auth/05.png" class="img-fluid gradient-main animated-scaleX"
                      alt="images">
             </div>
@@ -76,16 +76,16 @@ $keterangan = $statement->fetchAll();
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label for="password" class="form-label">Password</label>
-                                                <input required type="password" name="pasword" class="form-control"
+                                                <input required type="password" name="password" class="form-control"
                                                        id="password"
                                                        placeholder=" ">
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label for="role" class="form-label">Role</label>
+                                                <label for="role" class="form-label">Mendaftar sebagai</label>
                                                 <select class="form-select" id="role" name="role" required>
-                                                    <option value="">Pilih Role</option>
+                                                    <option value="">Pilih</option>
                                                     <option value="pencari">Pencari Jasa Layanan</option>
                                                     <option value="penyedia">Penyedia Jasa Layanan</option>
                                                 </select>
@@ -123,6 +123,31 @@ $keterangan = $statement->fetchAll();
                                                     <label for="foto" class="form-label">Foto</label>
                                                     <input type="file" class="form-control" name="foto" id="foto"
                                                            accept="image/*">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="kecamatan" class="form-label">Kecamatan</label>
+                                                    <input type="text" class="form-control" name="kecamatan" id="kecamatan" value="Medan Polonia" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="kelurahan" class="form-label">Kelurahan</label>
+                                                    <select class="form-control" name="kelurahan" id="kelurahan">
+                                                        <option value="">Pilih Kelurahan</option>
+                                                        <option value="Anggrung">Anggrung</option>
+                                                        <option value="Madras Hulu">Madras Hulu</option>
+                                                        <option value="Polonia">Polonia</option>
+                                                        <option value="Sari Rejo">Sari Rejo</option>
+                                                        <option value="Suka Damai">Suka Damai</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="alamat" class="form-label">Alamat</label>
+                                                    <input type="text" class="form-control" name="alamat" id="alamat">
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">

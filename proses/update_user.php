@@ -3,30 +3,30 @@ require_once __DIR__ . "/../koneksi.php";
 
 $koneksi = getKoneksi();
 $id = $_POST['id'];
-
+$username_baru = $_POST['username'];
 try {
-    // Mulai transaksi
     $koneksi->beginTransaction();
 
-    // Ambil username lama
-    $stmt = $koneksi->prepare("SELECT username FROM users WHERE id = ?");
-    $stmt->execute([$id]);
-    $oldUsername = $stmt->fetchColumn();
+    $sql = "SELECT username FROM users WHERE id = ?";
+    $statement = $koneksi->prepare($sql);
+    $statement->execute([$id]);
+    $user = $statement->fetch();
+    $username_lama = $user['username'];
 
+    if ($username_baru !== $username_lama) {
+        $sql = "SELECT COUNT(*) FROM users WHERE username = ?";
+        $statement = $koneksi->prepare($sql);
+        $statement->execute([$username_baru]);
+        $count = $statement->fetchColumn();
 
+        if ($count > 0) {
+            throw new Exception("Username sudah digunakan");
+        }
 
-    // Cek apakah username lama sama dengan baru
-    if ($oldUsername != $_POST['username']) {
-
-        // Update tabel users
-        $sql = "UPDATE users SET username = ? WHERE id = ?";
-        $stmt = $koneksi->prepare($sql);
-        $stmt->execute([$_POST['username'], $id]);
+        $sql = "UPDATE users SET  username = ? WHERE id = ?";
+        $statement = $koneksi->prepare($sql);
+        $statement->execute([$username_baru, $id]);
     }
-
-    // Cek apakah username baru sudah terdaftar
-
-    // Update tabel konsumen
     $data = [
         'email' => $_POST['email'],
         'alamat' => $_POST['alamat'],
@@ -34,25 +34,22 @@ try {
         'no_hp' => $_POST['no_hp'],
     ];
     $fields = implode('=?,', array_keys($data)) . '=?';
-    $stmt = $koneksi->prepare("UPDATE konsumen SET $fields WHERE id = $id");
+    $stmt = $koneksi->prepare("UPDATE konsumen SET $fields WHERE user_id = $id");
     $stmt->execute(array_values($data));
 
-    // Jika semua query berhasil, commit transaksi
     $koneksi->commit();
 
     echo "<script type='text/javascript'>
             alert('Ubah data berhasil.');
-            window.location.href = '../../view/anak.php';
+            window.location.href = '../tampilan/admin/data_user.php';
           </script>";
 } catch (Exception $e) {
-    // Jika ada error, rollback transaksi
     $koneksi->rollBack();
 
     echo "<script type='text/javascript'>
             alert('Data gagal diubah: " . $e->getMessage() . "');
-            window.location.href = '../../view/edit_anak.php?id=$id';
+            window.location.href = '../tampilan/admin/data_user.php';
           </script>";
 }
 
 $koneksi = null;
-?>
