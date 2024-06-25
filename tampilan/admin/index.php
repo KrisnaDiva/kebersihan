@@ -12,6 +12,11 @@ $sql = "SELECT COUNT(*) as jumlah FROM jasa_layanan";
 $stmt = $koneksi->prepare($sql);
 $stmt->execute();
 $jumlah_jasa_layanan = $stmt->fetchColumn();
+
+$sql = "SELECT COUNT(*) as jumlah FROM pemesanan";
+$stmt = $koneksi->prepare($sql);
+$stmt->execute();
+$jumlah_pemesanan = $stmt->fetchColumn();
 ?>
     <div class="row">
         <div class="col-md-12 col-lg-12">
@@ -61,6 +66,25 @@ $jumlah_jasa_layanan = $stmt->fetchColumn();
                                 </div>
                             </div>
                         </li>
+                    <li class="swiper-slide card card-slide"
+                        data-aos="fade-up"
+                        data-aos-delay="800">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="bg-warning text-white rounded p-3">
+                                    <svg class="icon-20" xmlns="http://www.w3.org/2000/svg" width="20px" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div class="text-end">
+                                    Data Pemesanan
+                                    <h2 class="counter" style="visibility: visible;"><?= $jumlah_pemesanan ?></h2>
+                                    <a class="btn btn-primary mt-2" href="cetak_pemesanan.php">Cetak</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
                     </ul>
                     <div class="swiper-button swiper-button-next"></div>
                     <div class="swiper-button swiper-button-prev"></div>

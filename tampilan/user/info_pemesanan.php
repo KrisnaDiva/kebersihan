@@ -4,12 +4,12 @@ ob_start();
 session_start();
 require_once __DIR__ . '/../../koneksi.php';
 $koneksi = getKoneksi();
-if($_SESSION['role'] == 'pencari') {
+if ($_SESSION['role'] == 'pencari') {
     $sql = "SELECT * FROM pemesanan WHERE user_id = ?";
     $statement = $koneksi->prepare($sql);
     $statement->execute([$_SESSION['id']]);
     $pemesanan = $statement->fetchAll();
-}else if ($_SESSION['role'] == 'penyedia'){
+} else if ($_SESSION['role'] == 'penyedia') {
     $sql = "SELECT * FROM jasa_layanan WHERE user_id = ?";
     $statement = $koneksi->prepare($sql);
     $statement->execute([$_SESSION['id']]);
@@ -27,6 +27,7 @@ if($_SESSION['role'] == 'pencari') {
     <!-- Section Title -->
     <div class="container section-title aos-init aos-animate" data-aos="fade-up">
         <p><span>Riwayat</span> <span class="description-title">Pemesanan</span></p>
+        <h6>Jika pesanan mu sudah diterima silahkan hubungi peyedia layanan</h6>
     </div><!-- End Section Title -->
 
     <div class="container">
@@ -38,42 +39,67 @@ if($_SESSION['role'] == 'pencari') {
                             <thead>
                             <tr>
                                 <th scope="col">No</th>
-                                <?php if($_SESSION['role'] == 'penyedia') : ?>
-                                <th scope="col">Nama Pemesan</th>
+                                <?php if ($_SESSION['role'] == 'penyedia') : ?>
+                                    <th scope="col">Nama Pemesan</th>
                                 <?php else:; ?>
-                                <th scope="col">Nama Jasa</th>
+                                    <th scope="col">Nama Jasa</th>
+                                    <th scope="col">Instagram</th>
+                                    <th scope="col">Facebook</th>
                                 <?php endif; ?>
+                                <th scope="col">No HP</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col">Tanggal Pemesanan</th>
                                 <th scope="col">Catatan</th>
                                 <th scope="col">Status</th>
+                                <?php if ($_SESSION['role'] == 'penyedia') : ?>
+                                    <th scope="col">Aksi</th>
+                                <?php endif; ?>
                             </tr>
                             </thead>
                             <tbody>
                             <?php $no = 1; ?>
                             <?php foreach ($pemesanan as $pemesan): ?>
-                            <?php
-                            $sql = "SELECT * FROM jasa_layanan WHERE id = ?";
-                            $statement = $koneksi->prepare($sql);
-                            $statement->execute([$pemesan['jasa_layanan_id']]);
-                            $jasa = $statement->fetch();
+                                <?php
+                                $sql = "SELECT * FROM jasa_layanan WHERE id = ?";
+                                $statement = $koneksi->prepare($sql);
+                                $statement->execute([$pemesan['jasa_layanan_id']]);
+                                $jasa = $statement->fetch();
 
-                            $sql = "SELECT * FROM users WHERE id = ?";
-                            $statement = $koneksi->prepare($sql);
-                            $statement->execute([$pemesan['user_id']]);
-                            $user = $statement->fetch();
-                            ?>
+                                if ($_SESSION['role'] == 'penyedia') {
+                                    $sql = "SELECT * FROM users WHERE id = ?";
+                                    $statement = $koneksi->prepare($sql);
+                                    $statement->execute([$pemesan['user_id']]);
+                                    $user = $statement->fetch();
+
+                                    $sql = "SELECT * FROM konsumen WHERE user_id = ?";
+                                    $statement = $koneksi->prepare($sql);
+                                    $statement->execute([$pemesan['user_id']]);
+                                    $konsumen = $statement->fetch();
+                                }
+                                ?>
                                 <tr>
                                     <td><?= $no++ ?></td>
-                                    <?php if($_SESSION['role'] == 'penyedia') : ?>
-                                    <td><?= $user['username'] ?></td>
+                                    <?php if ($_SESSION['role'] == 'penyedia') : ?>
+                                        <td><?= $user['username'] ?></td>
+                                        <td><?= $konsumen['no_hp'] ?></td>
                                     <?php else:; ?>
-                                    <td><?= $jasa['nama_jasa'] ?></td>
+                                        <td><?= $jasa['nama_jasa'] ?></td>
+                                        <td><?= $jasa['instagram'] ?></td>
+                                        <td><?= $jasa['facebook'] ?></td>
+                                        <td><?= $jasa['no_hp'] ?></td>
                                     <?php endif; ?>
                                     <td><?= $jasa['harga'] ?></td>
                                     <td><?= $pemesan['tanggal_pesan'] ?></td>
                                     <td><?= $pemesan['catatan'] ?></td>
                                     <td><?= $pemesan['status'] ?></td>
+                                    <?php if ($_SESSION['role'] == 'penyedia' && $pemesan['status'] == 'pending') : ?>
+                                        <td>
+                                            <a href="../../proses/update_status_pemesanan.php?id=<?= $pemesan['id'] ?>&status=diterima"
+                                               class="badge bg-success"><i class="fas fa-check"></i></a>
+                                            <a href="../../proses/update_status_pemesanan.php?id=<?= $pemesan['id'] ?>&status=ditolak"
+                                               class="badge bg-danger"><i class="fas fa-times"></i></a>
+                                        </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
@@ -87,7 +113,7 @@ if($_SESSION['role'] == 'pencari') {
 </section>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#pemesananTable').DataTable();
     });
 </script>

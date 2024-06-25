@@ -23,7 +23,7 @@ final class Pemesanan extends AbstractMigration
         $table->addColumn('user_id', 'integer',['null' => false, 'signed' => false])
             ->addColumn('jasa_layanan_id', 'integer',['null' => false, 'signed' => false])
             ->addColumn('tanggal_pesan', 'datetime')
-            ->addColumn('status', 'enum', ['values' => ['pending', 'diterima', 'ditolah'], 'default' => 'pending'])
+            ->addColumn('status', 'enum', ['values' => ['pending', 'diterima', 'ditolak'], 'default' => 'pending'])
             ->addColumn('catatan', 'text')
             ->addForeignKey('user_id', 'users', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
             ->addForeignKey('jasa_layanan_id', 'jasa_layanan', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])

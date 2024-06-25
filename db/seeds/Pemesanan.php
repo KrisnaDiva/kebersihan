@@ -18,7 +18,7 @@ class Pemesanan extends AbstractSeed
     {
         $data = [
             [
-                'user_id' => 3,
+                'user_id' => 2,
                 'jasa_layanan_id' => 1,
                 'tanggal_pesan' => '2024-06-24 15:07:57',
                 'catatan' => 'Pesan jasa layanan',
