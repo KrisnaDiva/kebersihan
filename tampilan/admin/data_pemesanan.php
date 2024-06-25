@@ -34,18 +34,18 @@ $results = $statement->fetchAll();
                                 <tbody>
                                 <?php $no = 1 ?>
                                 <?php foreach ($results as $result): ?>
-                                <?php
-                                $sql = "SELECT * FROM jasa_layanan WHERE id = ?";
-                                $statement = $koneksi->prepare($sql);
-                                $statement->execute([$result['jasa_layanan_id']]);
-                                $jasa = $statement->fetch();
+                                    <?php
+                                    $sql = "SELECT * FROM jasa_layanan WHERE id = ?";
+                                    $statement = $koneksi->prepare($sql);
+                                    $statement->execute([$result['jasa_layanan_id']]);
+                                    $jasa = $statement->fetch();
 
-                                $sql = "SELECT * FROM konsumen WHERE user_id = ?";
-                                $statement = $koneksi->prepare($sql);
-                                $statement->execute([$result['user_id']]);
-                                $konsumen = $statement->fetch();
+                                    $sql = "SELECT * FROM konsumen WHERE user_id = ?";
+                                    $statement = $koneksi->prepare($sql);
+                                    $statement->execute([$result['user_id']]);
+                                    $konsumen = $statement->fetch();
 
-                                ?>
+                                    ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
                                         <td><?= $jasa['nama_jasa'] ?></td>
@@ -54,7 +54,19 @@ $results = $statement->fetchAll();
                                         <td><?= $result['catatan'] ?></td>
                                         <td><?= $result['status'] ?></td>
                                         <td>
-
+                                            <a href="#" class="btn  btn-warning" data-bs-toggle="modal"
+                                               data-bs-target="#editPemesananModal"
+                                               data-id="<?= $result['id'] ?>"
+                                               data-nama_jasa="<?= $jasa['nama_jasa'] ?>"
+                                               data-nama="<?= $konsumen['nama'] ?>"
+                                               data-catatan="<?= $result['catatan'] ?>"
+                                               data-status="<?= $result['status'] ?>"
+                                            >Edit</a>
+                                            <form method="POST" action="../../proses/hapus_pemesanan.php"
+                                                  style="display: inline-block">
+                                                <input type="hidden" name="id" value="<?= $result['id'] ?>">
+                                                <button class="btn btn-danger">Hapus</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -66,6 +78,8 @@ $results = $statement->fetchAll();
             </div>
         </div>
     </div>
+<?php include('edit_pemesanan.php')?>
+
 <?php
 $content = ob_get_clean();
 include("template.php");
