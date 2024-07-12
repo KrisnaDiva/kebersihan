@@ -22,9 +22,9 @@ final class JasaLayanan extends AbstractMigration
         $table = $this->table('jasa_layanan');
         $table
             ->addColumn('user_id', 'integer', ['null' => false, 'signed' => false])
-            ->addColumn('keterangan_id', 'integer', ['null' => false, 'signed' => false])
+            ->addColumn('keterangan', 'text')
             ->addColumn('nama_jasa', 'string', ['limit' => 100])
-            ->addColumn('harga', 'integer')
+            ->addColumn('harga', 'text')
             ->addColumn('foto', 'string', ['limit' => 255])
             ->addColumn('no_hp', 'string', ['limit' => 20])
             ->addColumn('kecamatan', 'string', ['limit' => 100])
@@ -34,7 +34,6 @@ final class JasaLayanan extends AbstractMigration
             ->addColumn('facebook', 'string', ['limit' => 100])
             ->addColumn('instagram', 'string', ['limit' => 100])
             ->addForeignKey('user_id', 'users', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
-            ->addForeignKey('keterangan_id', 'keterangan', 'id', ['delete' => 'CASCADE', 'update' => 'NO_ACTION'])
             ->create();
     }
 }

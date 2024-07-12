@@ -22,6 +22,8 @@ final class Pemesanan extends AbstractMigration
         $table = $this->table('pemesanan');
         $table->addColumn('user_id', 'integer',['null' => false, 'signed' => false])
             ->addColumn('jasa_layanan_id', 'integer',['null' => false, 'signed' => false])
+            ->addColumn('layanan', 'string', ['limit' => 100])
+            ->addColumn('harga', 'integer')
             ->addColumn('tanggal_pesan', 'datetime')
             ->addColumn('status', 'enum', ['values' => ['pending', 'diterima', 'ditolak'], 'default' => 'pending'])
             ->addColumn('catatan', 'text')

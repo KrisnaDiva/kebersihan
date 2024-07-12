@@ -4,13 +4,13 @@ ob_start();
 require_once __DIR__ . '/../../koneksi.php';
 $koneksi = getKoneksi();
 
-$sql = "SELECT jasa_layanan.* FROM jasa_layanan JOIN keterangan ON jasa_layanan.keterangan_id = keterangan.id";
+$sql = "SELECT * FROM jasa_layanan";
 $conditions = [];
 if (isset($_GET['kelurahan']) && $_GET['kelurahan'] != '') {
     $conditions[] = "kelurahan = :kelurahan";
 }
 if (isset($_GET['keterangan']) && $_GET['keterangan'] != '') {
-    $conditions[] = "keterangan.nama = :keterangan";
+    $conditions[] = "JSON_CONTAINS(keterangan, :keterangan)";
 }
 if (!empty($conditions)) {
     $sql .= " WHERE " . implode(' AND ', $conditions);
@@ -20,11 +20,11 @@ if (isset($_GET['kelurahan']) && $_GET['kelurahan'] != '') {
     $statement->bindParam(':kelurahan', $_GET['kelurahan']);
 }
 if (isset($_GET['keterangan']) && $_GET['keterangan'] != '') {
-    $statement->bindParam(':keterangan', $_GET['keterangan']);
+    $keteranganFilter = json_encode($_GET['keterangan']);
+    $statement->bindParam(':keterangan', $keteranganFilter);
 }
 $statement->execute();
 $jasa_layanan = $statement->fetchAll();
-
 ?>
 <section id="hero" class="hero section">
     <div class="container">
@@ -76,7 +76,6 @@ $jasa_layanan = $statement->fetchAll();
                 ?>
             </select>
         </div>
-
     </form>
     <div class="container section-title" data-aos="fade-up">
         <p><span>Penyedia Jasa</span> <span class="description-title">Layanan</span></p>
@@ -89,15 +88,18 @@ $jasa_layanan = $statement->fetchAll();
                         <div class="member-img">
                             <img src="../../gambar/<?= $jasa['foto'] ?>" alt="" class="img-fluid">
                         </div>
-                        <h3><?= $jasa['nama_jasa'] ?></h3>
-                        <?php
-                        $sql = "SELECT * FROM keterangan WHERE id = ?";
-                        $statement = $koneksi->prepare($sql);
-                        $statement->execute([$jasa['keterangan_id']]);
-                        $keterangan = $statement->fetch();
-                        ?>
+                        <h3><?= htmlspecialchars($jasa['nama_jasa']) ?></h3>
                         <p style="text-transform: capitalize">layanan kami siap melayani anda dalam
-                            <?= $keterangan['nama'] ?>
+                            <?php
+                            $keteranganArray = json_decode($jasa['keterangan'], true);
+
+                            if (is_array($keteranganArray)) {
+                                $keterangan = implode(", ", $keteranganArray);
+                            } else {
+                                $keterangan = $jasa['keterangan'];
+                            }
+                            ?>
+                            <?= htmlspecialchars($keterangan) ?>
                         </p>
                         <a class="btn btn-primary w-100 mt-4" href="detail_layanan.php?id=<?= $jasa['id'] ?>">Detail</a>
                     </div>
@@ -118,4 +120,3 @@ $jasa_layanan = $statement->fetchAll();
 $content = ob_get_clean();
 include("template.php");
 ?>
-

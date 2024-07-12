@@ -51,6 +51,7 @@ if ($_SESSION['role'] == 'pencari') {
                                     <th scope="col">Facebook</th>
                                 <?php endif; ?>
                                 <th scope="col">No HP</th>
+                                <th scope="col">Layanan</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col">Tanggal Pemesanan</th>
                                 <th scope="col">Catatan</th>
@@ -88,11 +89,28 @@ if ($_SESSION['role'] == 'pencari') {
                                         <td><?= $konsumen['no_hp'] ?></td>
                                     <?php else:; ?>
                                         <td><?= $jasa['nama_jasa'] ?></td>
-                                        <td><?= $jasa['instagram'] ?></td>
-                                        <td><?= $jasa['facebook'] ?></td>
+                                        <td><a href="<?= $jasa['instagram'] ?>">Instagram</a></td>
+                                        <td><a href="<?= $jasa['facebook'] ?>">Facebook</a></td>
                                         <td><?= $jasa['no_hp'] ?></td>
                                     <?php endif; ?>
-                                    <td><?= $jasa['harga'] ?></td>
+                                    <td><?= $pemesan['layanan'] ?></td>
+                                    <td>
+                                        <?php
+                                        $harga = $pemesan['harga'];
+                                        $layanan = strtolower($pemesan['layanan']);
+                                        $satuan = '';
+
+                                        if (strpos($layanan, 'kebersihan') !== false) {
+                                            $satuan = '/meter persegi';
+                                        } else if (strpos($layanan, 'cuci') !== false) {
+                                            $satuan = '/kg';
+                                        }
+
+                                        $harga_rupiah = "Rp" . number_format($harga, 2, ',', '.');
+
+                                        echo $harga_rupiah . $satuan;
+                                        ?>
+                                    </td>
                                     <td><?= $pemesan['tanggal_pesan'] ?></td>
                                     <td><?= $pemesan['catatan'] ?></td>
                                     <td><?= $pemesan['status'] ?></td>

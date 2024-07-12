@@ -17,30 +17,19 @@ class Keterangan extends AbstractSeed
     public function run(): void
     {
         $data = [
-            [
-                'nama' => 'Mencuci Piring',
-            ],
-            [
-                'nama' => 'Menyetrika Pakaian',
-            ],
-            [
-                'nama' => 'Membersihkan Kamar Mandi',
-            ],
-            [
-                'nama' => 'Menyapu dan Mengepel',
-            ],
-            [
-                'nama' => 'Membersihkan Taman',
-            ],
-            [
-                'nama' => 'Mencuci Pakaian',
-            ],
-            [
-                'nama' => 'Memvakum Sofa atau Tempat Tidur',
-            ],
-
+            ['nama' => 'Kebersihan rumah'],
+            ['nama' => 'Kebersihan rumah baru renovasi'],
+            ['nama' => 'Kebersihan ruangan tamu'],
+            ['nama' => 'Kebersihan ruang dapur'],
+            ['nama' => 'Kebersihan kamar'],
+            ['nama' => 'Kebersihan kamar mandi'],
+            ['nama' => 'Kebersihan interior rumah'],
+            ['nama' => 'Cuci/kering karpet'],
+            ['nama' => 'Cuci/kering sofa'],
+            ['nama' => 'Cuci/kering springbad'],
+            ['nama' => 'Cuci/kering piring'],
+            ['nama' => 'Cuci/kering pakaian'],
         ];
 
         $this->table('keterangan')->insert($data)->saveData();
-    }
-}
+    }}

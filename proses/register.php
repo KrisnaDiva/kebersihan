@@ -21,8 +21,8 @@ try {
     if ($role == 'penyedia') {
         $data = [
             'nama_jasa' => $_POST['nama_jasa'],
-            'keterangan_id' => $_POST['keterangan_id'],
-            'harga' => $_POST['harga'],
+            'keterangan' => json_encode($_POST['keterangan']),
+            'harga' =>json_encode($_POST['harga']),
             'alamat' => $_POST['alamat'],
             'kelurahan' => $_POST['kelurahan'],
             'kecamatan' => $_POST['kecamatan'],

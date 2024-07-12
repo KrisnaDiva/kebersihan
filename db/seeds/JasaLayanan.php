@@ -19,9 +19,9 @@ class JasaLayanan extends AbstractSeed
         $data = [
             [
                 'user_id' => 3,
-                'keterangan_id' => 1,
+                'keterangan' => json_encode(["Kebersihan Rumah Baru Renovasi","Kebersihan Ruangan Tamu","Cuci/kering sofa"]),
                 'nama_jasa' => 'Fast and Clean',
-                'harga' => 100000,
+                'harga' => json_encode(["22222","33333","25252"]),
                 'foto' => 'path/to/foto.jpg',
                 'no_hp' => '081234567890',
                 'kecamatan' => 'Medan Polonia',
