@@ -1,7 +1,11 @@
 <?php
+require_once __DIR__ . '/../../middleware.php';
 $title = "Home";
 ob_start();
 session_start();
+
+auth();
+user();
 require_once __DIR__ . '/../../koneksi.php';
 $koneksi = getKoneksi();
 if ($_SESSION['role'] == 'pencari') {

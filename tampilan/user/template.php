@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../../middleware.php';
 require_once __DIR__ . '/../../koneksi.php';
-auth();
-user();
+if(!isset($_SESSION)) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,8 +66,16 @@ user();
                     ?>
                     <li><a href="<?= $homeHref ?>" class="<?= $homeClass ?>">Home</a></li>
                     <li><a href="<?= $servicesHref ?>" class="<?= $servicesClass ?>">Layanan</a></li>
-                    <li><a href="info_pemesanan.php" class="<?= $infoClass ?>">Info Pemesanan</a></li>
+                    <li>
+                        <?php if (isset($_SESSION['role'])): ?>
+                            <a href="info_pemesanan.php" class="<?= $infoClass ?>">Info Pemesanan</a>
+                        <?php endif; ?>
+                    </li>
+                    <?php if (isset($_SESSION['role'])): ?>
                     <li><a href="../../proses/logout.php">Logout</a></li>
+                    <?php else: ?>
+                    <li><a href="../login.php">Login</a></li>
+                    <?php endif; ?>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>

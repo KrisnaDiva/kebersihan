@@ -46,9 +46,13 @@ $jasa = $statement->fetch();
 
                         </div>
                     </div>
-                    <?php if($_SESSION['role'] == 'pencari') : ?>
-                        <a href="#" class="btn btn-primary mt-5" data-bs-toggle="modal" data-bs-target="#pesanModal">Pesan</a>
-                    <?php endif; ?>
+<?php if(!isset($_SESSION['role'])) : ?>
+    <a href="../login.php" class="btn btn-primary mt-5">Login untuk memesan</a>
+<?php else: ?>
+    <?php if ($_SESSION['role'] == 'pencari') : ?>
+        <a href="#" class="btn btn-primary mt-5" data-bs-toggle="modal" data-bs-target="#pesanModal">Pesan</a>
+<?php endif; ?>
+<?php endif; ?>
                 </div>
             </div>
         </div>

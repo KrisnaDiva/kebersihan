@@ -27,7 +27,7 @@ $html = "
     }
 
 </style>
-<h1>Daftar User</h1>
+<h1>Daftar Pemesanan</h1>
 <div class='tanggal-pencetakan'>Tanggal Cetak: " . date("d-m-Y") . "</div>
 ";
 

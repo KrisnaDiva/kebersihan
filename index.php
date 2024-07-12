@@ -1,3 +1,3 @@
 <?php
-header("Location: tampilan/login.php");
+header("Location: tampilan/user/index.php");
 exit();

@@ -40,44 +40,44 @@ $jasa_layanan = $statement->fetchAll();
     </div>
 </section>
 <section id="services" class="services section">
-<form method="GET" action="" class="row justify-content-center mb-5">
-    <div class="col-md-3">
-        <label for="kelurahan">Kelurahan</label>
-        <select name="kelurahan" id="kelurahan" class="form-control" onchange="this.form.submit()">
-            <option value="">Pilih Kelurahan</option>
-            <?php
-            $kelurahan = [
-                'Anggrung',
-                'Madras Hulu',
-                'Polonia',
-                'Sari Rejo',
-                'Suka Damai'
-            ];
+    <form method="GET" action="" class="row justify-content-center mb-5">
+        <div class="col-md-3">
+            <label for="kelurahan">Kelurahan</label>
+            <select name="kelurahan" id="kelurahan" class="form-control" onchange="this.form.submit()">
+                <option value="">Pilih Kelurahan</option>
+                <?php
+                $kelurahan = [
+                    'Anggrung',
+                    'Madras Hulu',
+                    'Polonia',
+                    'Sari Rejo',
+                    'Suka Damai'
+                ];
 
-            foreach ($kelurahan as $row) {
-                echo "<option value=\"{$row}\" " . ($_GET['kelurahan'] == $row ? 'selected' : '') . ">{$row}</option>";
-            }
-            ?>
-        </select>
-    </div>
+                foreach ($kelurahan as $row) {
+                    echo "<option value=\"{$row}\" " . ($_GET['kelurahan'] == $row ? 'selected' : '') . ">{$row}</option>";
+                }
+                ?>
+            </select>
+        </div>
 
-    <div class="col-md-3">
-        <label for="keterangan">Jenis</label>
-        <select name="keterangan" id="keterangan" class="form-control" onchange="this.form.submit()">
-            <option value="">Pilih Jenis</option>
-            <?php
-            $sql = "SELECT DISTINCT nama FROM keterangan ORDER BY nama";
-            $statement = $koneksi->prepare($sql);
-            $statement->execute();
-            $keterangan = $statement->fetchAll();
-            foreach ($keterangan as $row) {
-                echo "<option value=\"{$row['nama']}\" " . ($_GET['keterangan'] == $row['nama'] ? 'selected' : '') . ">{$row['nama']}</option>";
-            }
-            ?>
-        </select>
-    </div>
+        <div class="col-md-3">
+            <label for="keterangan">Jenis</label>
+            <select name="keterangan" id="keterangan" class="form-control" onchange="this.form.submit()">
+                <option value="">Pilih Jenis</option>
+                <?php
+                $sql = "SELECT DISTINCT nama FROM keterangan ORDER BY nama";
+                $statement = $koneksi->prepare($sql);
+                $statement->execute();
+                $keterangan = $statement->fetchAll();
+                foreach ($keterangan as $row) {
+                    echo "<option value=\"{$row['nama']}\" " . ($_GET['keterangan'] == $row['nama'] ? 'selected' : '') . ">{$row['nama']}</option>";
+                }
+                ?>
+            </select>
+        </div>
 
-</form>
+    </form>
     <div class="container section-title" data-aos="fade-up">
         <p><span>Penyedia Jasa</span> <span class="description-title">Layanan</span></p>
     </div>
