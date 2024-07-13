@@ -43,17 +43,36 @@ $html .= "
 <table border='1'>
     <tr>
         <th>No</th>
-                                    <th>Username</th>
-                                    <th>Nama Jasa</th>
-                                    <th>Foto</th>
-                                    <th>Harga</th>
-                                    <th>No HP</th>
-                                    <th>Email</th>
-                                    <th>Facebook</th>
-                                    <th>Instagram</th>
+        <th>Username</th>
+        <th>Nama Jasa</th>
+        <th>Foto</th>
+        <th>Layanan</th>
+        <th>Harga</th>
+        <th>No HP</th>
+        <th>Email</th>
+        <th>Facebook</th>
+        <th>Instagram</th>
     </tr>";
 $no = 1;
 foreach ($results as $result) {
+    $keteranganArray = json_decode($result['keterangan'], true);
+
+    if (is_array($keteranganArray)) {
+        $keterangan = implode(", ", $keteranganArray);
+    } else {
+        $keterangan = $result['keterangan'];
+    }
+    $hargaArray = json_decode($result['harga'], true);
+
+    if (is_array($hargaArray)) {
+        $hargaArray = array_map('floatval', $hargaArray);
+        $hargaTerendah = min($hargaArray);
+        $hargaTertinggi = max($hargaArray);
+        $hargaFormatted = 'Rp ' . number_format($hargaTerendah, 2, ',', '.') . ' - Rp ' . number_format($hargaTertinggi, 2, ',', '.');
+    } else {
+        $hargaFormatted = 'Rp ' . number_format(floatval($result['harga']), 2, ',', '.');
+    }
+
     $html .= "
     <tr>
     <td>" . $no++ . "</td>
@@ -62,7 +81,8 @@ foreach ($results as $result) {
         <td>
             <img src='../../gambar/" . $result['foto'] . "'>
         </td>
-        <td>" . $result['harga'] . "</td>
+        <td>" . htmlspecialchars($keterangan) . "</td>
+        <td>" . $hargaFormatted . "</td>
         <td>" . $result['no_hp'] . "</td>
         <td>" . $result['email'] . "</td>
         <td>" . $result['facebook'] . "</td>
@@ -71,8 +91,7 @@ foreach ($results as $result) {
 }
 
 $html .= "</table>";
-
-$mpdf = new \Mpdf\Mpdf();
+$mpdf = new \Mpdf\Mpdf(['orientation' => 'L']);
 
 $mpdf->WriteHTML($html);
 

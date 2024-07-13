@@ -49,9 +49,9 @@ $jasa = $statement->fetch();
                             $hargaArray = array_map('floatval', $hargaArray);
                             $hargaTerendah = min($hargaArray);
                             $hargaTertinggi = max($hargaArray);
-                            $hargaFormatted = 'Rp ' . number_format($hargaTerendah, 2, ',', '.') . ' - Rp ' . number_format($hargaTertinggi, 2, ',', '.');
+                            $hargaFormatted = 'Rp' . number_format($hargaTerendah, 2, ',', '.') . ' - Rp' . number_format($hargaTertinggi, 2, ',', '.');
                         } else {
-                            $hargaFormatted = 'Rp ' . number_format(floatval($jasa['harga']), 2, ',', '.');
+                            $hargaFormatted = 'Rp' . number_format(floatval($jasa['harga']), 2, ',', '.');
                         }
                         ?>
                         <h5 class="mb-3">Harga: <?= htmlspecialchars($hargaFormatted) ?></h5>

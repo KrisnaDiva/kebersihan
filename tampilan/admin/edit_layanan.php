@@ -22,10 +22,6 @@
                         <input type="file" class="form-control" id="edit-foto" name="foto">
                     </div>
                     <div class="mb-3">
-                        <label for="edit-harga" class="form-label">Harga</label>
-                        <input required type="number" class="form-control" id="edit-harga" name="harga">
-                    </div>
-                    <div class="mb-3">
                         <label for="edit-kecamatan" class="form-label">Kecamatan</label>
                         <input type="text" class="form-control" name="kecamatan" id="edit-kecamatan" value="Medan Polonia"
                                readonly>
@@ -82,7 +78,6 @@
         var alamat = button.getAttribute('data-alamat');
         var kelurahan = button.getAttribute('data-kelurahan');
         var kecamatan = button.getAttribute('data-kecamatan');
-        var harga = button.getAttribute('data-harga');
         var no_hp = button.getAttribute('data-no_hp');
         var email = button.getAttribute('data-email');
         var facebook = button.getAttribute('data-facebook');
@@ -92,7 +87,6 @@
         modal.querySelector('#edit-username').value = username;
         modal.querySelector('#edit-nama_jasa').value = nama_jasa;
         modal.querySelector('#edit-foto').value = '';
-        modal.querySelector('#edit-harga').value = harga;
         modal.querySelector('#edit-kecamatan').value = kecamatan;
         modal.querySelector('#edit-kelurahan').value = kelurahan;
         modal.querySelector('#edit-alamat').value = alamat;

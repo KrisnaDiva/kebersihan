@@ -25,6 +25,8 @@ $results = $statement->fetchAll();
                                     <th>No</th>
                                     <th>Nama Jasa</th>
                                     <th>Pembeli</th>
+                                    <th>Layanan</th>
+                                    <th>Harga</th>
                                     <th>Tanggal Pesan</th>
                                     <th>Catatan</th>
                                     <th>Status</th>
@@ -50,6 +52,8 @@ $results = $statement->fetchAll();
                                         <td><?= $no++ ?></td>
                                         <td><?= $jasa['nama_jasa'] ?></td>
                                         <td><?= $konsumen['nama'] ?></td>
+                                        <td><?= $result['layanan'] ?></td>
+                                        <td><?= $result['harga'] ?></td>
                                         <td><?= $result['tanggal_pesan'] ?></td>
                                         <td><?= $result['catatan'] ?></td>
                                         <td><?= $result['status'] ?></td>

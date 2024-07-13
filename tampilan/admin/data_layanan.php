@@ -29,6 +29,7 @@ $results = $statement->fetchAll();
                                     <th>Username</th>
                                     <th>Nama Jasa</th>
                                     <th>Foto</th>
+                                    <th>Layanan</th>
                                     <th>Harga</th>
                                     <th>Alamat</th>
                                     <th>Kelurahan</th>
@@ -41,7 +42,7 @@ $results = $statement->fetchAll();
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php $no=1 ?>
+                                <?php $no = 1 ?>
                                 <?php foreach ($results as $result): ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
@@ -50,7 +51,31 @@ $results = $statement->fetchAll();
                                         <td>
                                             <img src="../../gambar/<?= $result['foto'] ?>">
                                         </td>
-                                        <td><?= $result['harga'] ?></td>
+                                        <td>
+                                            <?php
+                                            $keteranganArray = json_decode($result['keterangan'], true);
+
+                                            if (is_array($keteranganArray)) {
+                                                $keterangan = implode(", ", $keteranganArray);
+                                            } else {
+                                                $keterangan = $result['keterangan'];
+                                            }
+                                            ?>
+                                            <?= htmlspecialchars($keterangan) ?>
+                                        </td>
+                                        <?php
+                                        $hargaArray = json_decode($result['harga'], true);
+
+                                        if (is_array($hargaArray)) {
+                                            $hargaArray = array_map('floatval', $hargaArray);
+                                            $hargaTerendah = min($hargaArray);
+                                            $hargaTertinggi = max($hargaArray);
+                                            $hargaFormatted = 'Rp ' . number_format($hargaTerendah, 2, ',', '.') . ' - Rp ' . number_format($hargaTertinggi, 2, ',', '.');
+                                        } else {
+                                            $hargaFormatted = 'Rp ' . number_format(floatval($result['harga']), 2, ',', '.');
+                                        }
+                                        ?>
+                                        <td><?= $hargaFormatted ?></td>
                                         <td><?= $result['alamat'] ?></td>
                                         <td><?= $result['kelurahan'] ?></td>
                                         <td><?= $result['kecamatan'] ?></td>
@@ -65,15 +90,15 @@ $results = $statement->fetchAll();
                                                data-username="<?= $result['username'] ?>"
                                                data-nama_jasa="<?= $result['nama_jasa'] ?>"
                                                data-foto="<?= $result['foto'] ?>"
-                                               data-harga="<?= $result['harga'] ?>"
-                                                  data-alamat="<?= $result['alamat'] ?>"
-                                                  data-kelurahan="<?= $result['kelurahan'] ?>"
-                                                    data-kecamatan="<?= $result['kecamatan'] ?>"
+                                               data-alamat="<?= $result['alamat'] ?>"
+                                               data-kelurahan="<?= $result['kelurahan'] ?>"
+                                               data-kecamatan="<?= $result['kecamatan'] ?>"
                                                data-no_hp="<?= $result['no_hp'] ?>"
                                                data-email="<?= $result['email'] ?>"
                                                data-facebook="<?= $result['facebook'] ?>"
                                                data-instagram="<?= $result['instagram'] ?>">Edit</a>
-                                            <form method="POST" action="../../proses/hapus_user.php" style="display: inline-block">
+                                            <form method="POST" action="../../proses/hapus_user.php"
+                                                  style="display: inline-block">
                                                 <input type="hidden" name="id" value="<?= $result['user_id'] ?>">
                                                 <button class="btn btn-danger">Hapus</button>
                                             </form>
@@ -89,7 +114,7 @@ $results = $statement->fetchAll();
         </div>
     </div>
 
-<?php include('edit_layanan.php')?>
+<?php include('edit_layanan.php') ?>
     <style>
         img {
             width: 300px;
